@@ -2,36 +2,19 @@
 void IERG3810_clock_tree_init(void);
 void IERG3810_USART2_init(u32 ,u32);
 void IERG3810_USART1_init(u32 ,u32);
+void USART_print(u8 ,char*);
 void Delay(u32);
 
 int main(void){
 	IERG3810_clock_tree_init();
 	IERG3810_USART1_init(72,9600);
-	//IERG3810_USART2_init(36,9600);
-	//USART_print(2,"1234567890");
+	IERG3810_USART2_init(36,9600);
+	USART_print(2,"1234567890");
 	Delay(8000000);
 	while(1){
-		USART1->DR=0x31;
+		USART2->DR=0x41;
 		Delay(50000);
-		USART1->DR=0x31;
-		Delay(50000);
-		USART1->DR=0x35;
-		Delay(50000);
-		USART1->DR=0x35;
-		Delay(50000);
-		USART1->DR=0x31;
-		Delay(50000);
-		USART1->DR=0x30;
-		Delay(50000);
-		USART1->DR=0x37;
-		Delay(50000);
-		USART1->DR=0x37;
-		Delay(50000);
-		USART1->DR=0x36;
-		Delay(50000);
-		USART1->DR=0x33;
-		Delay(50000);
-		USART1->DR=0x20;
+		USART2->DR=0x42;
 		Delay(50000);
 		Delay(1000000);
 	}
@@ -96,4 +79,17 @@ void IERG3810_USART1_init(u32 pclk2, u32 bound){
 	RCC->APB2RSTR &=~(1<<14); //(RM0008, page-152) (~ means inverted)
 	USART1->BRR = mantissa; //(RM0008, page-792)
 	USART1->CR1 |= 0x2008; //(RM0008, page-793)
+}
+void USART_print(u8 USARTport, char* st){
+    u8 i=0;
+    while (st[i]!=0x00){
+        if(USARTport==1) 
+            USART1->DR=st[i];
+        if(USARTport==2) 
+            USART2->DR=st[i];
+        Delay(50000);
+        if(i==255) 
+            break;
+        i++;
+    }
 }

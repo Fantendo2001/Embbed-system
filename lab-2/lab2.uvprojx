@@ -522,6 +522,18 @@
         </Group>
         <Group>
           <GroupName>Board</GroupName>
+          <Files>
+            <File>
+              <FileName>IERG3810_Clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Board\IERG3810_Clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>IERG3810_USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Board\IERG3810_USART.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>User</GroupName>
@@ -547,5 +559,20 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>&lt;Project Info&gt;</LayName>
+        <LayDesc></LayDesc>
+        <LayUrl></LayUrl>
+        <LayKeys></LayKeys>
+        <LayCat></LayCat>
+        <LayLic></LayLic>
+        <LayTarg>0</LayTarg>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>
