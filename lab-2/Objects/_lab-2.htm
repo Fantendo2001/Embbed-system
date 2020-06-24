@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\_lab-2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\_lab-2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Jun 23 19:25:02 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jun 24 16:15:41 2020
 <BR><P>
-<H3>Maximum Stack Usage =         64 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =         56 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; IERG3810_USART1_init &rArr; __aeabi_fmul
 <P>
@@ -211,7 +211,7 @@ Global Symbols
 <P><STRONG><a name="[94]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[56]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; IERG3810_USART1_init &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -469,8 +469,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[57]"></a>main</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = main &rArr; IERG3810_USART1_init &rArr; __aeabi_fmul
+<P><STRONG><a name="[57]"></a>main</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = main &rArr; IERG3810_USART1_init &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_print
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IERG3810_USART1_init

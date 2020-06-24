@@ -5,13 +5,17 @@
 int main(void){
 	IERG3810_clock_tree_init();
 	IERG3810_USART1_init(72,9600);
+	
 	IERG3810_USART2_init(36,9600);
-	USART_print(2,"1155107763");
-	// while(1){
-	// 	USART2->DR=0x41;
-	// 	Delay(50000);
-	// 	USART2->DR=0x42;
-	// 	Delay(50000);
-	// 	Delay(1000000);
-	// }
+	USART_print(1,"Han HU");
+	USART_print(2,"Han HU");
+	while(1){
+			USART_print(1,"Han HU");
+	USART_print(2,"Han HU");
+//		USART2->DR=0x41;
+//	 	Delay(50000);
+//	 	USART2->DR=0x42;
+//	 	Delay(50000);
+//	 	Delay(1000000);
+	}
 }
