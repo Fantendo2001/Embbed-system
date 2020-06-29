@@ -1865,9 +1865,9 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>.\User\main.c</Name>
-        <ColumnNumber>55</ColumnNumber>
-        <TopLine>20</TopLine>
-        <CurrentLine>21</CurrentLine>
+        <ColumnNumber>8</ColumnNumber>
+        <TopLine>15</TopLine>
+        <CurrentLine>24</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

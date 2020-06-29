@@ -12,13 +12,22 @@ void IERG3810_TFTLCD_init(void);
 void IERG3810_TFTLCD_SetParameter(void);
 void IERG3810_TFTLCD_WrReg(u16);
 void IERG3810_TFTLCD_WrData(u16);
-void IERG3810_TFTLCD_DrawDot(u16, u16, u16);
 void IERG3810_TFTLCD_FillRectangle(u16, u16, u16, u16, u16);
+void IERG3810_TFTLCD_SevenSegment(u16, u16, u16, u8);
+void Delay(u32);
+
 int main(void){
+    int display=0;
     IERG3810_TFTLCD_init();
+    IERG3810_TFTLCD_FillRectangle(0,0,240,0,320);
     while(1){
-       IERG3810_TFTLCD_FillRectangle(0xFFE0,100,100,100,100);
-       // yellow rectangle, x=100, y=100, length & width = 100
+        IERG3810_TFTLCD_FillRectangle(0,0,240,0,320);
+        Delay(8000000);
+        IERG3810_TFTLCD_SevenSegment(2020,80,80,9-display);
+        Delay(8000000);
+        IERG3810_TFTLCD_FillRectangle(0,80,80,80,160);
+        display++;
+        display=display%10;
     }
 }
 void IERG3810_TFTLCD_SetParameter(void){
@@ -82,20 +91,6 @@ void IERG3810_TFTLCD_WrReg(u16 regval){
 void IERG3810_TFTLCD_WrData(u16 data){
     LCD->LCD_RAM=data;
 }
-void IERG3810_TFTLCD_DrawDot(u16 x, u16 y, u16 color){
-    IERG3810_TFTLCD_WrReg(0x2A); //set x position
-    IERG3810_TFTLCD_WrData(x>>8);
-    IERG3810_TFTLCD_WrData(x & 0xFF);
-    IERG3810_TFTLCD_WrData(0x01);
-    IERG3810_TFTLCD_WrData(0x3F);
-    IERG3810_TFTLCD_WrReg(0x2B); //set y position
-    IERG3810_TFTLCD_WrData(y>>8);
-    IERG3810_TFTLCD_WrData(y & 0xFF);
-    IERG3810_TFTLCD_WrData(0x01);
-    IERG3810_TFTLCD_WrData(0xDF);
-    IERG3810_TFTLCD_WrReg(0x2C); //set point with color
-    IERG3810_TFTLCD_WrData(color);
-}
 void IERG3810_TFTLCD_FillRectangle(u16 color, u16 start_x, u16 length_x, u16 start_y, u16 length_y){
     u32 index=0;
     IERG3810_TFTLCD_WrReg(0x2A);
@@ -112,4 +107,83 @@ void IERG3810_TFTLCD_FillRectangle(u16 color, u16 start_x, u16 length_x, u16 sta
     for(index=0;index<length_x*length_y;index++){
         IERG3810_TFTLCD_WrData(color);
     }
+}
+void IERG3810_TFTLCD_SevenSegment(u16 color, u16 start_x, u16 start_y, u8 digit){
+    switch(digit){
+        case(0x00): // 0, we need segment abcdef
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y,10); //segment d
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+10,65); //segment e
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+85,65); //segment f
+            break;
+        case(0x01): // 1, we need segment bc
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            break;
+        case(0x02): // 2, we need segment abdeg
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y,10); //segment d
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+10,65); //segment e
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+75,10); //segment g
+            break;
+        case(0x03): // 3, we need segment abcdg
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y,10); //segment d
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+75,10); //segment g
+            break;
+        case(0x04): //4, we need segment bcfg
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+85,65); //segment f
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+75,10); //segment g
+            break;
+        case(0x05): //5, we need segment acdfg
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y,10); //segment d
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+85,65); //segment f
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+75,10); //segment g
+            break;
+        case(0x06): //6, we need segment acdefg
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y,10); //segment d
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+10,65); //segment e
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+85,65); //segment f
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+75,10); //segment g
+            break;
+        case(0x07): //7, we need segment abc
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            break;
+        case(0x08): //8, we need segment abcdefg
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y,10); //segment d
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+10,65); //segment e
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+85,65); //segment f
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+75,10); //segment g
+            break;
+        case(0x09): //9, we need abcdfg
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+150,10); //segment a
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+85,65); //segment b
+            IERG3810_TFTLCD_FillRectangle(color,start_x+70,10,start_y+10,65); //segment c
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y,10); //segment d
+            IERG3810_TFTLCD_FillRectangle(color,start_x,10,start_y+85,65); //segment f
+            IERG3810_TFTLCD_FillRectangle(color,start_x+10,60,start_y+75,10); //segment g
+            break;
+        default:
+            break;
+    }
+}
+void Delay(u32 count){
+	u32 i;
+	for(i=0;i<count;i++);
 }

@@ -12,7 +12,6 @@ void IERG3810_TFTLCD_init(void);
 void IERG3810_TFTLCD_SetParameter(void);
 void IERG3810_TFTLCD_WrReg(u16);
 void IERG3810_TFTLCD_WrData(u16);
-void IERG3810_TFTLCD_DrawDot(u16, u16, u16);
 void IERG3810_TFTLCD_FillRectangle(u16, u16, u16, u16, u16);
 int main(void){
     IERG3810_TFTLCD_init();
@@ -81,20 +80,6 @@ void IERG3810_TFTLCD_WrReg(u16 regval){
 }
 void IERG3810_TFTLCD_WrData(u16 data){
     LCD->LCD_RAM=data;
-}
-void IERG3810_TFTLCD_DrawDot(u16 x, u16 y, u16 color){
-    IERG3810_TFTLCD_WrReg(0x2A); //set x position
-    IERG3810_TFTLCD_WrData(x>>8);
-    IERG3810_TFTLCD_WrData(x & 0xFF);
-    IERG3810_TFTLCD_WrData(0x01);
-    IERG3810_TFTLCD_WrData(0x3F);
-    IERG3810_TFTLCD_WrReg(0x2B); //set y position
-    IERG3810_TFTLCD_WrData(y>>8);
-    IERG3810_TFTLCD_WrData(y & 0xFF);
-    IERG3810_TFTLCD_WrData(0x01);
-    IERG3810_TFTLCD_WrData(0xDF);
-    IERG3810_TFTLCD_WrReg(0x2C); //set point with color
-    IERG3810_TFTLCD_WrData(color);
 }
 void IERG3810_TFTLCD_FillRectangle(u16 color, u16 start_x, u16 length_x, u16 start_y, u16 length_y){
     u32 index=0;
