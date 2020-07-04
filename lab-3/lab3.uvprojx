@@ -522,6 +522,18 @@
         </Group>
         <Group>
           <GroupName>Board</GroupName>
+          <Files>
+            <File>
+              <FileName>IERG3810_Clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Board\IERG3810_Clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>IERG3810_TFTLCD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Board\IERG3810_TFTLCD.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>User</GroupName>
