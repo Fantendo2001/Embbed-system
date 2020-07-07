@@ -29,3 +29,4 @@
 .\objects\main.o: .\Fw_lib\inc\stm32f10x_wwdg.h
 .\objects\main.o: .\Fw_lib\inc\misc.h
 .\objects\main.o: .\Board\IERG3810_TFTLCD.h
+.\objects\main.o: .\Board\IERG3810_Clock.h
